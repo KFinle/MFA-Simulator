@@ -2,5 +2,7 @@ public enum CodeDestination
 {
     Email,
     Phone,
-    Authenticator
+    Authenticator,
+    None
+
 }

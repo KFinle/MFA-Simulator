@@ -6,18 +6,27 @@ public class PlayerController : MonoBehaviour
     public float x_movement;
     public float y_movement;
     public Vector3 target_position = new Vector3();
-    private bool isInteracting = false; // Track if the player is interacting
+    [HideInInspector] public bool isInteracting = false; // Track if the player is interacting
     public float interactionDistance = 3f; // Distance for interaction
-    [SerializeField] IInteractable interactableObject; // Reference to the IInteractable object
+    public IInteractable interactableObject; // Reference to the IInteractable object
+    
+    public Transform spawnPoint;
 
     void Start()
     {
-        interactableObject = null; // No interactable object initially
+        SpawnPlayer();
     }
 
+    public void SpawnPlayer()
+    {
+        gameObject.transform.position = spawnPoint.position;
+
+        isInteracting = false;
+        interactableObject = null; // No interactable object initially
+    }
     private void FixedUpdate()
     {
-        Move();
+        if (!isInteracting) Move();
     }
 
     void Update()

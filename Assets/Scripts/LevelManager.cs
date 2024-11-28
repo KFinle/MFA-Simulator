@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,22 +14,34 @@ public class LevelManager : MonoBehaviour
     public Text endText; // End text element
     public Text taskListText; // The UI Text where tasks will be displayed
     public GameObject taskListPanel; // The Panel that holds the task list
-    
-    
+    public Text notePadText;
+
+
     int levelIndex = 0; // Default to the first level for the player
     int numLevels;
 
     public Canvas[] canvases;
     public LevelData[] levels; // Array of levels
-    private LevelData currentLevel;
-    private int currentTaskIndex = 0;
+    public LevelData currentLevel;
+    [HideInInspector] public int currentTaskIndex = 0;
 
-    
+
     // Dictionary to map CanvasType to actual canvas
     public Dictionary<CanvasType, Canvas> canvasDictionary = new Dictionary<CanvasType, Canvas>();
 
     public MFAController mfaController; // Reference to MFAController
     public AuthenticatorApp authenticatorApp; // Reference to AuthenticatorApp
+
+    public MessageManager messageManager;
+
+    private Canvas canvasPointer;
+    private PlayerController player;
+    private bool levelActive = false;
+
+    void Awake()
+    {
+        player = FindFirstObjectByType<PlayerController>();
+    }
 
     void Start()
     {
@@ -65,6 +79,10 @@ public class LevelManager : MonoBehaviour
             mfaController.codeValid = false;
             CompleteTask();
         }
+        if (levelActive && currentLevel.tasks[currentTaskIndex].codeDestination == CodeDestination.Authenticator)
+        {
+            GenerateCodeForTask(currentLevel.tasks[currentTaskIndex]);
+        }
     }
 
 
@@ -80,21 +98,32 @@ public class LevelManager : MonoBehaviour
 
     public void StartGame()
     {
+        levelActive = true;
+        player.SpawnPlayer();
         currentLevel = levels[levelIndex];
+        
+
+        InitTaskList();
+        if (notePadText != null)
+        {
+            notePadText.text = currentLevel.notepadText;
+        }
 
         // Display the intro screen
-        introCanvas.gameObject.SetActive(true);
+        //introCanvas.gameObject.SetActive(true);
         introText.text = currentLevel.introText;
-        endCanvas.gameObject.SetActive(false);
+        //endCanvas.gameObject.SetActive(false);
 
         // Show the task list panel
-        taskListPanel.SetActive(true);
+        //taskListPanel.SetActive(true);
         UpdateTaskList();
+        //ShowCanvas(CanvasType.TaskPanel);
+        ShowCanvas(CanvasType.IntroCanvas);
     }
 
     public void StartLevelTasks()
     {
-        introCanvas.gameObject.SetActive(false);
+        ShowCanvas(CanvasType.TaskPanel);
         StartNextTask();
     }
 
@@ -151,19 +180,21 @@ public class LevelManager : MonoBehaviour
     public void CompleteTask()
     {
 
+        currentLevel.tasks[currentTaskIndex].isCompleted = true;
         currentTaskIndex++;
         StartNextTask();
- 
+
     }
 
     void EndLevel()
     {
+        levelActive = false;
         Debug.Log("Level Complete!");
         endCanvas.gameObject.SetActive(true);
         endText.text = currentLevel.endText;
 
         // Hide task list panel when level ends
-        taskListPanel.SetActive(false);
+        //taskListPanel.SetActive(false);
     }
 
     public void NextLevel()
@@ -173,9 +204,10 @@ public class LevelManager : MonoBehaviour
         if (levelIndex != numLevels)
         {
 
-        StartGame();
+            StartGame();
         }
-        else {
+        else
+        {
             Debug.Log("Out of levels");
         }
     }
@@ -187,7 +219,15 @@ public class LevelManager : MonoBehaviour
         {
             var task = currentLevel.tasks[i];
             string taskStatus = (i == currentTaskIndex) ? "[Current Task] " : "[Completed] ";
-            taskListText.text += taskStatus + task.taskDescription + "\n";
+            // taskListText.text += taskStatus + task.taskDescription + "\n";
+            
+            taskListText.text = taskStatus + task.taskDescription + "\n";
+
+            // Stop showing further tasks if the current task is not completed
+            if (i == currentTaskIndex && !task.isCompleted)
+            {
+                break;
+            }
         }
     }
     public void ShowCanvas(CanvasType canvasType)
@@ -210,6 +250,14 @@ public class LevelManager : MonoBehaviour
         else
         {
             Debug.LogError("CanvasType not found!");
+        }
+    }
+    
+    void InitTaskList()
+    {
+        foreach (var task in currentLevel.tasks)
+        {
+            task.isCompleted = false;
         }
     }
 }

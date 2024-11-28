@@ -13,5 +13,6 @@
         PhoneCallApp,
         PhoneMessagingApp,
         PhoneAuthenticatorApp,
-        GameCanvas
+        GameCanvas,
+        ComputerNotepad
     }

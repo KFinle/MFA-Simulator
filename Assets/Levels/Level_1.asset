@@ -15,7 +15,40 @@ MonoBehaviour:
   levelName: We Love MFA <3
   introText: Welcomw!
   endText: Yay
+  mfaTimer: 5
+  levelTimer: 0
+  notepadText: 'Forward and back and then forward and back and then go forward and
+    back and put one foot forward. Forward and back and then forward and back and
+    then go forward and back and put one foot forward. Forward and back and then
+    forward and back and then go forward and back and put one foot forward. Forward
+    and back and then forward and back and then go forward and back and put one foot
+    forward. Forward and back and then forward and back and then go forward and back
+    and put one foot forward. Forward and back and then forward and back and then
+    go forward and back and put one foot forward. Forward and back and then forward
+    and back and then go forward and back and put one foot forward. Forward and back
+    and then forward and back and then go forward and back and put one foot forward.
+    Forward and back and then forward and back and then go forward and back and put
+    one foot forward. Forward and back and then forward and back and then go forward
+    and back and put one foot forward. Forward and back and then forward and back
+    and then go forward and back and put one foot forward. Forward and back and then
+    forward and back and then go forward and back and put one foot forward. Forward
+    and back and then forward and back and then go forward and back and put one foot
+    forward. Forward and back and then forward and back and then go forward and back
+    and put one foot forward. Forward and back and then forward and back and then
+    go forward and back and put one foot forward. Forward and back and then forward
+    and back and then go forward and back and put one foot forward. '
   tasks:
   - taskDescription: Login to PC
-    codeDestination: 0
+    codeDestination: 1
     requiresInteraction: 1
+    mfaTimerEnabled: 1
+    levelTimerEnabled: 0
+    isCompleted: 1
+    isFinalTask: 0
+  - taskDescription: Go to bed
+    codeDestination: 3
+    requiresInteraction: 1
+    mfaTimerEnabled: 1
+    levelTimerEnabled: 0
+    isCompleted: 1
+    isFinalTask: 1

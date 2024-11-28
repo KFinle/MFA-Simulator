@@ -16,6 +16,8 @@ public class MFAController : MonoBehaviour
     public AuthenticatorApp authenticatorApp; // Reference to the authenticator app
     public CodeDestination codeDestination;
 
+    public MessageManager messageManager;
+public string instructions = "";
     public void GenerateCode(bool useAuthenticatorApp, CodeDestination destination = CodeDestination.Authenticator)
     {
         if (useAuthenticatorApp)
@@ -28,13 +30,16 @@ public class MFAController : MonoBehaviour
             // Generate a standard random code
             currentGeneratedCode = Random.Range(100000, 999999).ToString();
             
-            if (codeDestination == CodeDestination.Email)
+            if (destination == CodeDestination.Email)
             {
                 emailText.text = currentGeneratedCode;
+                instructions = "Please check the code WE sent to your email.";
             }
             else 
             {
                 phoneText.text = currentGeneratedCode;
+                instructions = "Please check the code WE sent to your phone.";
+                messageManager.AddMessage("Your code: " + currentGeneratedCode);
             }
         }
 
@@ -46,21 +51,21 @@ public class MFAController : MonoBehaviour
     {
         if (!codeGenerated)
         {
-            feedbackText.text = "Error: No code requested!";
+            // feedbackText.text = "Error: No code requested!";
             Debug.Log("Validation failed: No code generated.");
             return;
         }
 
         if (input == currentGeneratedCode)
         {
-            feedbackText.text = "Access Granted!";
+            // feedbackText.text = "Access Granted!";
             Debug.Log("Validation success.");
             codeGenerated = false; // Reset after successful validation
             codeValid = true;
         }
         else
         {
-            feedbackText.text = "Error: Invalid Code!";
+            // feedbackText.text = "Error: Invalid Code!";
             Debug.Log("Validation failed: Wrong code.");
         }
     }

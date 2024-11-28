@@ -24,7 +24,7 @@ public ApplicationManager appManager;
     }
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
+    DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame

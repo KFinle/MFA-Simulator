@@ -1,3 +1,4 @@
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,5 +50,10 @@ public class AuthenticatorApp : MonoBehaviour
     public string GetCurrentCode()
     {
         return currentCode;
+    }
+    
+    public void ResetTimer()
+    {
+        timer = 0;
     }
 }
