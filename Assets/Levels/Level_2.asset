@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: Level_2
   m_EditorClassIdentifier: 
   levelName: We Love MFA <3
-  introText: Level 2 :)
-  endText: Yay
+  introText: Day TWO
+  endText: AAAAHHHH
+  mfaTimer: 0
+  levelTimer: 0
+  notepadText: 
   tasks:
-  - taskDescription: Kill God
-    codeDestination: 0
+  - taskDescription: Go to bed
+    codeDestination: 3
     requiresInteraction: 1
+    mfaTimerEnabled: 0
+    levelTimerEnabled: 0
+    isCompleted: 1
+    isFinalTask: 1
