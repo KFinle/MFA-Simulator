@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   levelName: We Love MFA <3
-  introText: Welcomw!
+  introText: 'DAY ONE: TIME FOR SCHOOL.'
   endText: Yay
   mfaTimer: 5
   levelTimer: 0
@@ -37,18 +37,28 @@ MonoBehaviour:
     and put one foot forward. Forward and back and then forward and back and then
     go forward and back and put one foot forward. Forward and back and then forward
     and back and then go forward and back and put one foot forward. '
+  introDialogue: {fileID: 11400000, guid: e5830850e7590b342afc76156229be86, type: 2}
+  outroDialogue: {fileID: 0}
   tasks:
-  - taskDescription: Login to PC
+  - taskDescription: Login to Student Portal
     codeDestination: 1
+    codeOrigin: 0
     requiresInteraction: 1
     mfaTimerEnabled: 1
     levelTimerEnabled: 0
     isCompleted: 1
     isFinalTask: 0
+    isFirstTask: 1
+    preTaskDialogue: {fileID: 11400000, guid: c63d188044c96ac4680e739783ef00cc, type: 2}
+    postTaskDialogue: {fileID: 0}
   - taskDescription: Go to bed
     codeDestination: 3
+    codeOrigin: 0
     requiresInteraction: 1
     mfaTimerEnabled: 1
     levelTimerEnabled: 0
     isCompleted: 1
     isFinalTask: 1
+    isFirstTask: 0
+    preTaskDialogue: {fileID: 11400000, guid: 9fabe5fdf9db48b4ca3c9841b41204e0, type: 2}
+    postTaskDialogue: {fileID: 0}

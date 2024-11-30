@@ -10,19 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06c1c2201b898454f9ff603fd7d01ecb, type: 3}
-  m_Name: Level_2
+  m_Name: Level_3
   m_EditorClassIdentifier: 
-  levelName: We Love MFA <3
-  introText: Day TWO
-  endText: AAAAHHHH
+  levelName: 
+  introText: 
+  endText: 
   mfaTimer: 0
   levelTimer: 0
   notepadText: 
-  tasks:
-  - taskDescription: Go to bed
-    codeDestination: 3
-    requiresInteraction: 1
-    mfaTimerEnabled: 0
-    levelTimerEnabled: 0
-    isCompleted: 1
-    isFinalTask: 1
+  preTaskDialogue: {fileID: 0}
+  postTaskDialogue: {fileID: 0}
+  tasks: []

@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +8,7 @@ public class LevelManager : MonoBehaviour
     public Dropdown levelDropdown; // Dropdown for selecting levels (visible only to developers)
     public Canvas introCanvas; // Intro screen canvas
     public Canvas endCanvas; // End screen canvas
-    public Text introText; // Intro text element
+    public TextMeshProUGUI introText; // Intro text element
     public Text endText; // End text element
     public Text taskListText; // The UI Text where tasks will be displayed
     public GameObject taskListPanel; // The Panel that holds the task list
@@ -33,6 +31,7 @@ public class LevelManager : MonoBehaviour
     public AuthenticatorApp authenticatorApp; // Reference to AuthenticatorApp
 
     public MessageManager messageManager;
+    public DialogueController dialogueController;
 
     private Canvas canvasPointer;
     private PlayerController player;
@@ -83,7 +82,17 @@ public class LevelManager : MonoBehaviour
         {
             GenerateCodeForTask(currentLevel.tasks[currentTaskIndex]);
         }
+        if (!dialogueController.inIntro && CanvasIsActive(CanvasType.IntroCanvas))
+        {
+            StartLevelTasks();
+        }
+
+        if (!dialogueController.inOutro && CanvasIsActive(CanvasType.CompletionCanvas))
+        {
+            ShowCanvas(CanvasType.GameplayCanvas);
+        }
     }
+
 
 
     void PopulateDropdown()
@@ -101,29 +110,24 @@ public class LevelManager : MonoBehaviour
         levelActive = true;
         player.SpawnPlayer();
         currentLevel = levels[levelIndex];
-        
-
         InitTaskList();
         if (notePadText != null)
         {
             notePadText.text = currentLevel.notepadText;
         }
-
-        // Display the intro screen
-        //introCanvas.gameObject.SetActive(true);
         introText.text = currentLevel.introText;
-        //endCanvas.gameObject.SetActive(false);
-
-        // Show the task list panel
-        //taskListPanel.SetActive(true);
         UpdateTaskList();
-        //ShowCanvas(CanvasType.TaskPanel);
+
+        dialogueController.inIntro = true;
+        dialogueController.DisplayNextParagraph(currentLevel.introDialogue);
+
+
         ShowCanvas(CanvasType.IntroCanvas);
     }
 
     public void StartLevelTasks()
     {
-        ShowCanvas(CanvasType.TaskPanel);
+        ShowCanvas(CanvasType.GameplayCanvas);
         StartNextTask();
     }
 
@@ -132,6 +136,10 @@ public class LevelManager : MonoBehaviour
         if (currentTaskIndex < currentLevel.tasks.Length)
         {
             var task = currentLevel.tasks[currentTaskIndex];
+            if (task.preTaskDialogue != null)
+            {
+                dialogueController.DisplayNextParagraph(task.preTaskDialogue);
+            }
             Debug.Log("Starting Task: " + task.taskDescription);
 
             UpdateTaskList(); // Update task list UI
@@ -179,6 +187,10 @@ public class LevelManager : MonoBehaviour
 
     public void CompleteTask()
     {
+        if (currentLevel.tasks[currentTaskIndex].postTaskDialogue != null)
+        {
+            dialogueController.DisplayNextParagraph(currentLevel.tasks[currentTaskIndex].postTaskDialogue);
+        }
 
         currentLevel.tasks[currentTaskIndex].isCompleted = true;
         currentTaskIndex++;
@@ -192,6 +204,9 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Level Complete!");
         endCanvas.gameObject.SetActive(true);
         endText.text = currentLevel.endText;
+        
+
+        NextLevel();
 
         // Hide task list panel when level ends
         //taskListPanel.SetActive(false);
@@ -259,5 +274,16 @@ public class LevelManager : MonoBehaviour
         {
             task.isCompleted = false;
         }
+    }
+    
+
+    bool CanvasIsActive(CanvasType canvasType)
+    {
+        
+        if (canvasDictionary.ContainsKey(canvasType))
+        {
+            return canvasDictionary[canvasType].gameObject.activeSelf;
+        }
+        return false;
     }
 }

@@ -2,7 +2,7 @@
     {
         IntroCanvas,
         CompletionCanvas,
-        TaskPanel,
+        GameplayCanvas,
         PCScreenCanvas,
         ComputerHome,
         ComputerEmail,
@@ -13,6 +13,5 @@
         PhoneCallApp,
         PhoneMessagingApp,
         PhoneAuthenticatorApp,
-        GameCanvas,
         ComputerNotepad
     }

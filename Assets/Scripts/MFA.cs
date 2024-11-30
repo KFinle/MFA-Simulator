@@ -1,4 +1,4 @@
-
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +17,11 @@ public class MFAController : MonoBehaviour
     public CodeDestination codeDestination;
 
     public MessageManager messageManager;
+    
+
+    public Dictionary<CodeOrigin, string> activeCodes = new Dictionary<CodeOrigin, string>();
+    
+    public Dictionary<CodeOrigin, CodeDestination> codePairings = new Dictionary<CodeOrigin, CodeDestination>();
 public string instructions = "";
     public void GenerateCode(bool useAuthenticatorApp, CodeDestination destination = CodeDestination.Authenticator)
     {
@@ -47,6 +52,12 @@ public string instructions = "";
         Debug.Log("Generated MFA Code: " + currentGeneratedCode);
     }
 
+    public void GenerateCodeFromOrigin(CodeOrigin origin)
+    {
+        GenerateCode(false, codePairings[origin]);
+
+    }
+
     public void ValidateCode(string input)
     {
         if (!codeGenerated)
@@ -69,6 +80,7 @@ public string instructions = "";
             Debug.Log("Validation failed: Wrong code.");
         }
     }
+    
 
     public void ResetCode()
     {

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c1c2201b898454f9ff603fd7d01ecb, type: 3}
+  m_Name: Level_2
+  m_EditorClassIdentifier: 
+  levelName: We Love MFA <3
+  introText: Day TWO
+  endText: AAAAHHHH
+  mfaTimer: 0
+  levelTimer: 0
+  notepadText: 
+  introDialogue: {fileID: 11400000, guid: 85cac43e4ef51e441be07468c9c52e76, type: 2}
+  outroDialogue: {fileID: 0}
+  tasks:
+  - taskDescription: Go to bed
+    codeDestination: 3
+    codeOrigin: 0
+    requiresInteraction: 1
+    mfaTimerEnabled: 0
+    levelTimerEnabled: 0
+    isCompleted: 0
+    isFinalTask: 1
+    isFirstTask: 0
+    preTaskDialogue: {fileID: 0}
+    postTaskDialogue: {fileID: 0}

@@ -12,6 +12,6 @@ public class Phone : MonoBehaviour, IInteractable
     public void CancelInteraction(LevelManager levelManager)
     {
         Debug.Log("Interaction with ComputerHome ended");
-        levelManager.ShowCanvas(CanvasType.TaskPanel);
+        levelManager.ShowCanvas(CanvasType.GameplayCanvas);
     }   
 }
