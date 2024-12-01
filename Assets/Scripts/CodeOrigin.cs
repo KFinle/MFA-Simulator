@@ -2,8 +2,9 @@ public enum CodeOrigin
 {
     StudentPortal,
     Email,
-    Police,
+    CallApp,
     TextApp,
     MusicApp,
+    PCLogin,
     None
 }

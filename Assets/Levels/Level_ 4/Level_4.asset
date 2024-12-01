@@ -12,12 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c1c2201b898454f9ff603fd7d01ecb, type: 3}
   m_Name: Level_4
   m_EditorClassIdentifier: 
-  levelName: 
-  introText: 
+  levelName: Level 4
+  introText: 'DAY 4: ONE LESS'
   endText: 
   mfaTimer: 0
   levelTimer: 0
   notepadText: 
-  preTaskDialogue: {fileID: 0}
-  postTaskDialogue: {fileID: 0}
-  tasks: []
+  introDialogue: {fileID: 11400000, guid: 30d12720a0d75c847973124c7f768d64, type: 2}
+  outroDialogue: {fileID: 0}
+  messagesNeedMFA: 1
+  callsNeedsMFA: 0
+  phoneNeedsMFA: 0
+  startsWithEmail: 1
+  pcNeedsMFA: 1
+  introEmailMessage: '[$*@()] kEeP yOuR nOsE cLeAn'
+  tasks:
+  - taskDescription: 
+    codeDestination: 0
+    codeOrigin: 0
+    requiresInteraction: 0
+    mfaTimerEnabled: 0
+    levelTimerEnabled: 0
+    isCompleted: 0
+    isFinalTask: 0
+    isFirstTask: 0
+    preTaskDialogue: {fileID: 0}
+    postTaskDialogue: {fileID: 0}

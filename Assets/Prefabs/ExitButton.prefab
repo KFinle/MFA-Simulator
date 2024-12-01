@@ -190,9 +190,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 0}
-  canvasType: 4
+  targetCanvasType: 4
+  codeValidation: {fileID: 0}
   code: {fileID: 0}
   mfaInstructions: {fileID: 0}
+  codeOrigin: 0
 --- !u!1 &6151366650544655404
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,6 +312,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 0}
-  canvasType: 4
+  targetCanvasType: 4
+  codeValidation: {fileID: 0}
   code: {fileID: 0}
   mfaInstructions: {fileID: 0}
+  codeOrigin: 0

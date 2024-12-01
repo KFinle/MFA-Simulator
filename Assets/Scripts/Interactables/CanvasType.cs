@@ -6,12 +6,17 @@
         PCScreenCanvas,
         ComputerHome,
         ComputerEmail,
+        ComputerInbox,
         ComputerSchoolPage,
+        ComputerStudentPortal,
         PhoneHome,
         PhoneMusicApp,
         PhoneWeatherApp,
         PhoneCallApp,
         PhoneMessagingApp,
         PhoneAuthenticatorApp,
-        ComputerNotepad
+        ComputerNotepad,
+        GameOverCanvas,
+        PhoneMFACheck,
+        ComputerLogin
     }

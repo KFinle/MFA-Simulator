@@ -18,6 +18,25 @@ MonoBehaviour:
   mfaTimer: 0
   levelTimer: 0
   notepadText: 
-  preTaskDialogue: {fileID: 0}
-  postTaskDialogue: {fileID: 0}
-  tasks: []
+  introDialogue: {fileID: 11400000, guid: d57eb935b154c044db9b671871e0bef6, type: 2}
+  outroDialogue: {fileID: 0}
+  messagesNeedMFA: 1
+  callsNeedsMFA: 1
+  phoneNeedsMFA: 0
+  startsWithEmail: 1
+  startsWithText: 1
+  introTextMessage: They are here. Stay quiet. Call the police.
+  pcNeedsMFA: 1
+  introEmailMessage: '[THEM] It''s too late. We are coming.'
+  tasks:
+  - taskDescription: Go to bed
+    codeDestination: 3
+    codeOrigin: 6
+    requiresInteraction: 0
+    mfaTimerEnabled: 0
+    levelTimerEnabled: 0
+    isCompleted: 0
+    isFinalTask: 1
+    isFirstTask: 0
+    preTaskDialogue: {fileID: 0}
+    postTaskDialogue: {fileID: 0}

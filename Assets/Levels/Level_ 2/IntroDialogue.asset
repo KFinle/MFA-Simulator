@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ee85b4d4184c5458488aa99e38c717, type: 3}
   m_Name: IntroDialogue
   m_EditorClassIdentifier: 
-  speakerName: 
+  speakerName: Willow
   paragraphs:
-  - A new day begins again yeeeehaw
+  - '*zzz...*'

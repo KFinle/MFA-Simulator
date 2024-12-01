@@ -1,87 +1,147 @@
-
-using NUnit.Framework;
+using System.Data.Common;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ButtonWrapper : MonoBehaviour
 {
-    public LevelManager levelManager;  // Reference to the LevelManager
-    public CanvasType canvasType;  // The canvas type to pass
+    public LevelManager levelManager; // Reference to the LevelManager
+    public CanvasType targetCanvasType;     // The canvas type to pass
+    public GameObject codeValidation; // MFA input box container
 
-    public GameObject codeValidation;
-    
+    [Header("Optional Fields")]
+    public InputField code;               // Input field for MFA code
+    public GameObject mfaInstructions;    // MFA instructions UI element
+    private string mfaInstructionsText;   // Cached instructions text
+    public CodeOrigin codeOrigin;         // The CodeOrigin to use for generating and validating codes
 
     void Start()
     {
-        
         levelManager = FindObjectOfType<LevelManager>(); // Find the LevelManager in the scene
     }
-    [Header("Optional Fields")]
-    public InputField code;
-    public GameObject mfaInstructions;
-    private string mfaInstructionsText;
 
-    // This method will be called by the button's OnClick()
+    // Show a specific canvas via the LevelManager
     public void ShowCanvas()
     {
-        levelManager.ShowCanvas(canvasType);  // Pass the CanvasType parameter
-
+        Debug.Log($"Target canvas: {targetCanvasType}");
+        levelManager.ShowCanvas(targetCanvasType);
     }
 
-    public void Login()
+    // Generate a code for the specified CodeOrigin
+    public void GenerateCode()
     {
-        levelManager.OnTaskInteraction();
-        if (mfaInstructions != null)
+        if (codeOrigin != CodeOrigin.None)
         {
-            mfaInstructionsText = levelManager.mfaController.instructions;
-            SetInstructionText(mfaInstructionsText);
-        }       
-    }
-    public void ValidateCode()
-    {
-        levelManager.mfaController.ValidateCode(code.text);
-        if (!levelManager.mfaController.codeValid)
+            levelManager.mfaController.GenerateCodeFromOrigin(codeOrigin);
+            if (mfaInstructions != null)
+            {
+                mfaInstructionsText = levelManager.mfaController.instructions; // Retrieve instructions
+                SetInstructionText(mfaInstructionsText);
+            }
+        }
+        else
         {
-            SetInstructionText("WRONG CODE. DO IT AGAIN. NOW.");
+            Debug.LogError("CodeOrigin is not set.");
         }
     }
 
+    // Validate the entered MFA code
+    public void ValidateCode()
+    {
+        if (codeOrigin != CodeOrigin.None)
+        {
+            levelManager.mfaController.ValidateCode(codeOrigin, code.text);
+
+            if (levelManager.mfaController.codeValid)
+            {
+                SetInstructionText("SUCCESS! Code is valid.");
+                SetInstructionText("");
+                code.text = "";
+                SetMFAInputBoxOff();
+                if (codeOrigin == CodeOrigin.PCLogin) levelManager.pcManager.pcNeedsMFA = false;
+                ShowCanvas();
+            }
+            else
+            {
+                SetInstructionText("WRONG CODE. DO IT AGAIN. NOW.");
+            }
+        }
+        else
+        {
+            Debug.LogError("CodeOrigin is not set.");
+        }
+    }
+
+    // Update the MFA instructions text
     public void SetInstructionText(string newText)
     {
-        mfaInstructions.GetComponent<TextMeshProUGUI>().text = newText;
-        mfaInstructions.SetActive(true);
+        if (mfaInstructions != null)
+        {
+            mfaInstructions.GetComponent<TextMeshProUGUI>().text = newText;
+            mfaInstructions.SetActive(true);
+        }
     }
+
+    // Print a debug message
     public void PrintDebug()
     {
         Debug.Log("Clicked!");
     }
 
+    // Toggle the visibility of the MFA input box
     public void ToggleMFAInputBox()
     {
-        if(!codeValidation.activeSelf)
+        if (codeValidation != null)
         {
-            codeValidation.SetActive(true);
-        }
-        else 
-        {
-            codeValidation.SetActive(false);
+            codeValidation.SetActive(!codeValidation.activeSelf);
         }
     }
 
+    // Ensure the MFA input box is visible
     public void SetMFAInputBoxOn()
     {
-        if(!codeValidation.activeSelf)
+        if (codeValidation != null && !codeValidation.activeSelf)
         {
             codeValidation.SetActive(true);
         }
     }
-    
+
+    // Ensure the MFA input box is hidden
     public void SetMFAInputBoxOff()
     {
-        if(codeValidation.activeSelf)
+        if (codeValidation != null && codeValidation.activeSelf)
         {
             codeValidation.SetActive(false);
+        }
+    }
+    
+    public void LaunchGame()
+    {
+        SceneManager.LoadScene("GameplayScene");
+    }
+    public void ValidatePhoneMFA()
+    {
+        if (codeOrigin != CodeOrigin.None)
+        {
+            levelManager.mfaController.ValidateCode(codeOrigin, code.text);
+
+            if (levelManager.mfaController.codeValid)
+            {
+                SetInstructionText("SUCCESS! Code is valid.");
+                // Optionally, notify the LevelManager of task completion if needed
+                code.text = "";
+                FindFirstObjectByType<PhoneManager>().messagesNeedMFA = false;
+                ShowCanvas();
+            }
+            else
+            {
+                SetInstructionText("WRONG CODE. DO IT AGAIN. NOW.");
+            }
+        }
+        else
+        {
+            Debug.LogError("CodeOrigin is not set.");
         }
     }
 }

@@ -12,12 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c1c2201b898454f9ff603fd7d01ecb, type: 3}
   m_Name: Level_3
   m_EditorClassIdentifier: 
-  levelName: 
-  introText: 
+  levelName: 'DAY 3: HAVE YOU HEARD?'
+  introText: 'DAY 3: HAVE YOU HEARD?'
   endText: 
   mfaTimer: 0
   levelTimer: 0
   notepadText: 
-  preTaskDialogue: {fileID: 0}
-  postTaskDialogue: {fileID: 0}
-  tasks: []
+  introDialogue: {fileID: 11400000, guid: 9b55d7657ee12914a9b8e02d59e3aa33, type: 2}
+  outroDialogue: {fileID: 0}
+  messagesNeedMFA: 0
+  tasks:
+  - taskDescription: Go to bed
+    codeDestination: 3
+    codeOrigin: 5
+    requiresInteraction: 0
+    mfaTimerEnabled: 0
+    levelTimerEnabled: 0
+    isCompleted: 1
+    isFinalTask: 1
+    isFirstTask: 0
+    preTaskDialogue: {fileID: 11400000, guid: efa948337fc06c14e8956b1623b92146, type: 2}
+    postTaskDialogue: {fileID: 0}

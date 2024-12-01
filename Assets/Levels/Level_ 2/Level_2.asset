@@ -12,22 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c1c2201b898454f9ff603fd7d01ecb, type: 3}
   m_Name: Level_2
   m_EditorClassIdentifier: 
-  levelName: We Love MFA <3
+  levelName: Level 2
   introText: Day TWO
-  endText: AAAAHHHH
+  endText: ANOTHER DAY ENDS. ANOTHER DAY BEGINS.
   mfaTimer: 0
   levelTimer: 0
   notepadText: 
   introDialogue: {fileID: 11400000, guid: 85cac43e4ef51e441be07468c9c52e76, type: 2}
   outroDialogue: {fileID: 0}
+  messagesNeedMFA: 1
   tasks:
-  - taskDescription: Go to bed
-    codeDestination: 3
+  - taskDescription: Login to Student Portal
+    codeDestination: 1
     codeOrigin: 0
     requiresInteraction: 1
     mfaTimerEnabled: 0
     levelTimerEnabled: 0
-    isCompleted: 0
+    isCompleted: 1
+    isFinalTask: 0
+    isFirstTask: 1
+    preTaskDialogue: {fileID: 11400000, guid: 95b4ffbda2aea0849b491ca74bf6b7d7, type: 2}
+    postTaskDialogue: {fileID: 11400000, guid: 05cac2948b88be045ad5889f29184cc3, type: 2}
+  - taskDescription: Go to bed
+    codeDestination: 3
+    codeOrigin: 5
+    requiresInteraction: 1
+    mfaTimerEnabled: 0
+    levelTimerEnabled: 0
+    isCompleted: 1
     isFinalTask: 1
     isFirstTask: 0
     preTaskDialogue: {fileID: 0}

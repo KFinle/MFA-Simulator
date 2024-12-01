@@ -11,7 +11,12 @@ public class PlayerController : MonoBehaviour
     public IInteractable interactableObject; // Reference to the IInteractable object
     
     public Transform spawnPoint;
+    LevelManager levelManager;
 
+    void Awake()
+    {
+        levelManager = FindObjectOfType<LevelManager>(); // Find the LevelManager in the scene
+    }
     void Start()
     {
         SpawnPlayer();
@@ -26,7 +31,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!isInteracting) Move();
+        if (!isInteracting && !IsInDialogue()) Move();
     }
 
     void Update()
@@ -71,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleInteraction()
     {
-        LevelManager levelManager = FindObjectOfType<LevelManager>(); // Find the LevelManager in the scene
+        
         if (interactableObject != null && Input.GetKeyDown(KeyCode.E)) // Press 'E' to interact
         {
             // Trigger the interaction and pass the LevelManager to control canvas switching
@@ -97,5 +102,10 @@ public class PlayerController : MonoBehaviour
 
         // Draw the interaction range as a 2D circle around the player
         Gizmos.DrawWireSphere(transform.position, interactionDistance);
+    }
+    
+    bool IsInDialogue()
+    {
+        return levelManager.dialogueController.inDialogue;
     }
 }

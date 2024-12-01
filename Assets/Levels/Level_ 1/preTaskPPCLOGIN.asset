@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speakerName: Willow
   paragraphs:
-  - '"I wonder if my grades have been posted yet."'
+  - '"I wonder if I have any assignments due today."'
   - '"Better check the Student Portal."'

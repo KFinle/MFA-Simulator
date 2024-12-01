@@ -10,81 +10,136 @@ public class MFAController : MonoBehaviour
     public Text emailText;
     public bool codeValid = false;
 
-    private string currentGeneratedCode; // Active code generated
-    private bool codeGenerated = false;
-
     public AuthenticatorApp authenticatorApp; // Reference to the authenticator app
-    public CodeDestination codeDestination;
-
     public MessageManager messageManager;
-    
+    public EmailManager emailManager;
 
     public Dictionary<CodeOrigin, string> activeCodes = new Dictionary<CodeOrigin, string>();
-    
-    public Dictionary<CodeOrigin, CodeDestination> codePairings = new Dictionary<CodeOrigin, CodeDestination>();
-public string instructions = "";
-    public void GenerateCode(bool useAuthenticatorApp, CodeDestination destination = CodeDestination.Authenticator)
+    // public Dictionary<CodeOrigin, CodeDestination> codePairings = new Dictionary<CodeOrigin, CodeDestination>();
+    public Dictionary<CodeOrigin, string> validatedCodes = new Dictionary<CodeOrigin, string>(); 
+
+    public Dictionary<CodeOrigin, CodeDestination> codePairings = new Dictionary<CodeOrigin, CodeDestination>
     {
-        if (useAuthenticatorApp)
+        {CodeOrigin.StudentPortal, CodeDestination.Phone},
+        {CodeOrigin.Email, CodeDestination.Phone},
+        {CodeOrigin.TextApp, CodeDestination.Authenticator},
+        {CodeOrigin.CallApp, CodeDestination.Email},
+        {CodeOrigin.PCLogin, CodeDestination.Phone}
+    };
+    public string instructions = "";
+
+
+public void GenerateCode(CodeOrigin origin, bool useAuthenticatorApp = false, CodeDestination destination = CodeDestination.Authenticator)
+{
+    if (destination == CodeDestination.Authenticator)
+    {
+        // No static code generation; rely on AuthenticatorApp
+        Debug.Log($"Authenticator app linked to {origin}. Use the app's current code.");
+        instructions = "Use the code displayed in the Authenticator app.";
+    }
+    else
+    {
+        string generatedCode = Random.Range(100000, 999999).ToString();
+        activeCodes[origin] = generatedCode;
+
+        if (destination == CodeDestination.Email)
         {
-            // Use the current code from the authenticator app
-            currentGeneratedCode = authenticatorApp.GetCurrentCode();
+            emailText.text = $"Code from {origin}: {generatedCode}";
+            instructions = "Please check the code WE sent to your email.";
+            emailManager.AddMessage(emailText.text);
         }
-        else
+        else if (destination == CodeDestination.Phone)
         {
-            // Generate a standard random code
-            currentGeneratedCode = Random.Range(100000, 999999).ToString();
-            
-            if (destination == CodeDestination.Email)
-            {
-                emailText.text = currentGeneratedCode;
-                instructions = "Please check the code WE sent to your email.";
-            }
-            else 
-            {
-                phoneText.text = currentGeneratedCode;
-                instructions = "Please check the code WE sent to your phone.";
-                messageManager.AddMessage("Your code: " + currentGeneratedCode);
-            }
+            phoneText.text = $"Code from {origin}: {generatedCode}";
+            instructions = "Please check the code WE sent to your phone.";
+            messageManager.AddMessage(phoneText.text);
         }
 
-        codeGenerated = true;
-        Debug.Log("Generated MFA Code: " + currentGeneratedCode);
+        Debug.Log($"Generated MFA Code for {origin}: {generatedCode}");
     }
 
-    public void GenerateCodeFromOrigin(CodeOrigin origin)
+    PrintAllCodes();
+}
+
+public void ValidateCode(CodeOrigin origin, string input)
+{
+    if (codePairings.TryGetValue(origin, out CodeDestination destination) && destination == CodeDestination.Authenticator)
     {
-        GenerateCode(false, codePairings[origin]);
-
-    }
-
-    public void ValidateCode(string input)
-    {
-        if (!codeGenerated)
+        // Check the authenticator app's current code
+        string currentAuthCode = authenticatorApp.GetCurrentCode();
+        if (currentAuthCode == input)
         {
-            // feedbackText.text = "Error: No code requested!";
-            Debug.Log("Validation failed: No code generated.");
-            return;
-        }
-
-        if (input == currentGeneratedCode)
-        {
-            // feedbackText.text = "Access Granted!";
-            Debug.Log("Validation success.");
-            codeGenerated = false; // Reset after successful validation
+            Debug.Log($"Validation success for {origin} using Authenticator App.");
+            validatedCodes[origin] = currentAuthCode;
             codeValid = true;
         }
         else
         {
-            // feedbackText.text = "Error: Invalid Code!";
-            Debug.Log("Validation failed: Wrong code.");
+            Debug.Log($"Validation failed: Wrong code for {origin} using Authenticator App.");
         }
+    }
+    else if (activeCodes.ContainsKey(origin))
+    {
+        if (activeCodes[origin] == input)
+        {
+            Debug.Log($"Validation success for {origin}.");
+            validatedCodes[origin] = activeCodes[origin];
+            activeCodes.Remove(origin);
+            codeValid = true;
+        }
+        else
+        {
+            Debug.Log($"Validation failed: Wrong code for {origin}.");
+        }
+    }
+    else
+    {
+        Debug.Log($"Validation failed: No code generated for {origin}.");
+    }
+    instructions = "";
+}
+    // Reset a specific origin's code
+    public void ResetCode(CodeOrigin origin)
+    {
+        if (activeCodes.ContainsKey(origin))
+        {
+            activeCodes.Remove(origin);
+            Debug.Log($"Code for {origin} has been reset.");
+        }
+    }
+
+    // Reset all codes
+    public void ResetAllCodes()
+    {
+        activeCodes.Clear();
+        Debug.Log("All codes have been reset.");
     }
     
 
-    public void ResetCode()
+public void GenerateCodeFromOrigin(CodeOrigin origin)
+{
+    if (codePairings.TryGetValue(origin, out CodeDestination destination))
     {
-        currentGeneratedCode = null;
-        codeGenerated = false;
+        bool useAuthenticatorApp = destination == CodeDestination.Authenticator;
+        GenerateCode(origin, useAuthenticatorApp, destination);
+    }
+    else
+    {
+        Debug.LogError("No pairing found for the specified origin: " + origin);
     }
 }
+
+
+public void PrintAllCodes()
+{
+    foreach (var pairing in activeCodes)
+    {
+        Debug.Log($"CodeOrigin: {pairing.Key}, CodeDestination: {codePairings[pairing.Key]}, Code: {pairing.Value}");
+    }
+}
+    public void ClearValidatedCodes()
+    {
+        validatedCodes.Clear();
+    }
+}
+

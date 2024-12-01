@@ -32,6 +32,11 @@ public class DialogueController : MonoBehaviour
             {
                 DisplayNextParagraph(currentDialogue);
             }
+
+            // if (Input.GetKeyDown(KeyCode.X))
+            // {
+            //     EndDialogue();
+            // }
         }
     }
     public void DisplayNextParagraph(DialogueContent content)
@@ -82,7 +87,7 @@ public class DialogueController : MonoBehaviour
             paragraphs.Enqueue(content.paragraphs[i]);
         }
     }
-    void EndDialogue()
+    public void EndDialogue()
     {
         inIntro = false;
         inOutro = false;
