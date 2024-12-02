@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37ee85b4d4184c5458488aa99e38c717, type: 3}
-  m_Name: introDialogue
+  m_Name: outroDialogue
   m_EditorClassIdentifier: 
   speakerName: Willow
   paragraphs:
-  - '"..."'
-  - '"It''s quiet..."'
-  - '"Seems like I haven''t heard any voices outside in a while..."'
+  - '"Is it just me, or am I having to MFA on more things than I used to?"'
+  - '"The world certainly feels strange these days..."'
+  - '*zzz*'

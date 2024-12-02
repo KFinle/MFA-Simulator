@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37ee85b4d4184c5458488aa99e38c717, type: 3}
-  m_Name: introDialogue
+  m_Name: postTextDialogue
   m_EditorClassIdentifier: 
-  speakerName: Willow
+  speakerName: Voices in the hall
   paragraphs:
-  - '"..."'
-  - '"It''s quiet..."'
-  - '"Seems like I haven''t heard any voices outside in a while..."'
+  - '[Muffled Male Voice] "Where is she?"'
+  - '[Quivering Man] "U-uhh.. I uh.. I''m not sure who you mea--"'
+  - '*BANG*'

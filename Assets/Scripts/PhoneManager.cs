@@ -8,6 +8,7 @@ public class PhoneManager : MonoBehaviour
 
     public bool messagesNeedMFA = false;
     public bool callNeedsAuthentication = false;
+    public bool generatedPhoneCode;
     public TextMeshProUGUI instructions;
     void Start()
     {
@@ -27,7 +28,8 @@ public class PhoneManager : MonoBehaviour
             instructions.text = "Check your email. It's your only option.";
             mfaButtonWrapper.codeOrigin = CodeOrigin.CallApp;
             mfaButtonWrapper.targetCanvasType = CanvasType.PhoneCallApp;
-            mfaButtonWrapper.GenerateCode();
+            if(!generatedPhoneCode)mfaButtonWrapper.GenerateCode(); 
+            generatedPhoneCode = true;
             levelManager.ShowCanvas(CanvasType.PhoneMFACheck);
         }
 

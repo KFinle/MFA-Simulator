@@ -1,5 +1,4 @@
 
-using UnityEditor.XR;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewLevelData", menuName = "MFA Game/Level Data")]
@@ -36,11 +35,18 @@ public class LevelData : ScriptableObject
         public bool levelTimerEnabled; // If the level timer is enabled for this task
         public bool isCompleted = false; // Whether the task is completed
         public bool isFinalTask = false; // Marks the task as the final one in the level
-        public bool isFirstTask = false; // Marks the task as the first one in the level
+        // public bool isFirstTask = false; // Marks the task as the first one in the level
 
 
         public DialogueContent preTaskDialogue; // Dialogue before the task starts
         public DialogueContent postTaskDialogue; // Dialogue after the task completes
+        public bool sendsText = false;
+        public bool sendsEmail = false;
+        public string textMessage;
+        public string email;
+        public bool taskTextAppNeedsMFA = false;
+
+        public bool taskCallAppNeedsMFA = false;
     }
 
     public Task[] tasks; // Array of tasks for this level

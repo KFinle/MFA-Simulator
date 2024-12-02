@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 
   introText: 
-  endText: 
+  endText: MULTIFACTOR AUTHENTICATOR SIMULATOR
   mfaTimer: 0
   levelTimer: 0
   notepadText: 
   introDialogue: {fileID: 11400000, guid: d57eb935b154c044db9b671871e0bef6, type: 2}
-  outroDialogue: {fileID: 0}
+  outroDialogue: {fileID: 11400000, guid: 4ef4cf2376112354483a974268d1837e, type: 2}
   messagesNeedMFA: 1
-  callsNeedsMFA: 1
+  callsNeedsMFA: 0
   phoneNeedsMFA: 0
   startsWithEmail: 1
   startsWithText: 1
@@ -29,14 +29,35 @@ MonoBehaviour:
   pcNeedsMFA: 1
   introEmailMessage: '[THEM] It''s too late. We are coming.'
   tasks:
-  - taskDescription: Go to bed
-    codeDestination: 3
-    codeOrigin: 6
+  - taskDescription: Check your texts
+    codeDestination: 2
+    codeOrigin: 3
     requiresInteraction: 0
     mfaTimerEnabled: 0
     levelTimerEnabled: 0
-    isCompleted: 0
-    isFinalTask: 1
-    isFirstTask: 0
-    preTaskDialogue: {fileID: 0}
-    postTaskDialogue: {fileID: 0}
+    isCompleted: 1
+    isFinalTask: 0
+    preTaskDialogue: {fileID: 11400000, guid: 4e8f7be33f0b04e4ba0698b4e22bac18, type: 2}
+    postTaskDialogue: {fileID: 11400000, guid: ef8163085cc4d7f4bb8d06e190477fca, type: 2}
+    sendsText: 1
+    sendsEmail: 1
+    textMessage: what will you do now? where will you go?
+    email: '[WE] HA HA HA HA HA HA HA HA HA HA'
+    taskTextAppNeedsMFA: 0
+    taskCallAppNeedsMFA: 0
+  - taskDescription: Call the police
+    codeDestination: 0
+    codeOrigin: 2
+    requiresInteraction: 1
+    mfaTimerEnabled: 0
+    levelTimerEnabled: 0
+    isCompleted: 1
+    isFinalTask: 0
+    preTaskDialogue: {fileID: 11400000, guid: c51a16133de90154ba460f62eb2808ac, type: 2}
+    postTaskDialogue: {fileID: 11400000, guid: 01456ed88c451884ba3cd362f81b354d, type: 2}
+    sendsText: 1
+    sendsEmail: 1
+    textMessage: THEY ARE COMING. HURRY. CALL THE POLICE.
+    email: '[WE] HA HA HA HA HA HA HA HA HA HA'
+    taskTextAppNeedsMFA: 0
+    taskCallAppNeedsMFA: 1

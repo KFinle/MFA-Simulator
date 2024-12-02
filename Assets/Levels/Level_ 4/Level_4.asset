@@ -24,10 +24,12 @@ MonoBehaviour:
   callsNeedsMFA: 0
   phoneNeedsMFA: 0
   startsWithEmail: 1
+  startsWithText: 0
+  introTextMessage: 
   pcNeedsMFA: 1
   introEmailMessage: '[$*@()] kEeP yOuR nOsE cLeAn'
   tasks:
-  - taskDescription: 
+  - taskDescription: Login to StudentPortal
     codeDestination: 0
     codeOrigin: 0
     requiresInteraction: 0
@@ -35,6 +37,11 @@ MonoBehaviour:
     levelTimerEnabled: 0
     isCompleted: 0
     isFinalTask: 0
-    isFirstTask: 0
     preTaskDialogue: {fileID: 0}
     postTaskDialogue: {fileID: 0}
+    sendsText: 0
+    sendsEmail: 0
+    textMessage: 
+    email: 
+    taskTextAppNeedsMFA: 0
+    taskCallAppNeedsMFA: 0

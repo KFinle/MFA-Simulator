@@ -16,6 +16,7 @@ public class ButtonWrapper : MonoBehaviour
     private string mfaInstructionsText;   // Cached instructions text
     public CodeOrigin codeOrigin;         // The CodeOrigin to use for generating and validating codes
 
+
     void Start()
     {
         levelManager = FindObjectOfType<LevelManager>(); // Find the LevelManager in the scene
@@ -131,7 +132,9 @@ public class ButtonWrapper : MonoBehaviour
                 SetInstructionText("SUCCESS! Code is valid.");
                 // Optionally, notify the LevelManager of task completion if needed
                 code.text = "";
-                FindFirstObjectByType<PhoneManager>().messagesNeedMFA = false;
+                if (codeOrigin == CodeOrigin.TextApp) FindFirstObjectByType<PhoneManager>().messagesNeedMFA = false;
+                if (codeOrigin == CodeOrigin.CallApp) FindFirstObjectByType<PhoneManager>().callNeedsAuthentication = false;
+                SetMFAInputBoxOff();
                 ShowCanvas();
             }
             else

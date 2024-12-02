@@ -125,7 +125,7 @@ public class LevelManager : MonoBehaviour
         // Existing logic for generating codes and managing canvases
         if (levelActive && currentLevel.tasks[currentTaskIndex].codeDestination == CodeDestination.Authenticator)
         {
-            GenerateCodeForTask(currentLevel.tasks[currentTaskIndex]);
+            //GenerateCodeForTask(currentLevel.tasks[currentTaskIndex]);
         }
 
         if (!dialogueController.inIntro && CanvasIsActive(CanvasType.IntroCanvas))
@@ -204,6 +204,24 @@ public class LevelManager : MonoBehaviour
             mfaController.validatedCodes.Clear();
             mfaController.ResetAllCodes();
             var task = currentLevel.tasks[currentTaskIndex];
+            if (task.sendsText)
+            {
+                messageManager.AddMessage(task.textMessage);
+            }
+            
+            if (task.sendsEmail)
+            {
+                emailManager.AddMessage(task.email);
+            }
+            if (task.taskTextAppNeedsMFA)
+            {
+                phoneManager.messagesNeedMFA = true;
+            }
+            if (task.taskCallAppNeedsMFA)
+            {
+                phoneManager.generatedPhoneCode = false;
+                phoneManager.callNeedsAuthentication = true;
+            }
 
             if (task.preTaskDialogue != null)
             {

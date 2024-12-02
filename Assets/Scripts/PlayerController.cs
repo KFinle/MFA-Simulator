@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -5,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed;
     public float x_movement;
     public float y_movement;
+    private Vector2 movementVector = new Vector2();
     public Vector3 target_position = new Vector3();
     [HideInInspector] public bool isInteracting = false; // Track if the player is interacting
     public float interactionDistance = 3f; // Distance for interaction
@@ -12,9 +15,12 @@ public class PlayerController : MonoBehaviour
     
     public Transform spawnPoint;
     LevelManager levelManager;
+    PlayerDirection playerDirection = PlayerDirection.Down;
+    Animator animator;
 
     void Awake()
     {
+        animator = GetComponent<Animator>();
         levelManager = FindObjectOfType<LevelManager>(); // Find the LevelManager in the scene
     }
     void Start()
@@ -37,6 +43,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         GetInputs();
+        Flip();
+        Animate();
         CheckForInteractable();
         HandleInteraction();
     }
@@ -48,10 +56,28 @@ public class PlayerController : MonoBehaviour
         transform.position = target_position;
     }
 
+    void Animate()
+    {
+            animator.SetFloat("xVec", Math.Abs(x_movement));
+            animator.SetFloat("yVec", y_movement);
+    }
+
+    void Flip()
+    {
+        if (movementVector.x > 0 )
+        {
+            transform.localScale = new Vector3(-1, transform.localScale.y, 1);
+        }
+        if (movementVector.x < 0)
+        {
+            transform.localScale = new Vector3(1, transform.localScale.y, 1);
+        }
+    }
     void GetInputs()
     {
         x_movement = Input.GetAxisRaw("Horizontal");
         y_movement = Input.GetAxisRaw("Vertical");
+        movementVector = new Vector2(x_movement, y_movement);
     }
 
     void CheckForInteractable()

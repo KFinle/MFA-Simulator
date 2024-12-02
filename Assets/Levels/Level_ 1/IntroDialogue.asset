@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speakerName: 
   paragraphs:
-  - Another grey sky greets Willow's freshly awoken eyes
-  - Today, much like every other day, feels bland and unexciting
-  - She lets out a gentle sigh, and rises from her bed
+  - Another grey sky greets Willow's freshly awoken eyes.
+  - Today, much like every other day, feels bland and unexciting.
+  - She lets out a gentle sigh, and rises from her bed.
   - A new day has begun...

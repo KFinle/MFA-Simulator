@@ -14,22 +14,96 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 'DAY 3: HAVE YOU HEARD?'
   introText: 'DAY 3: HAVE YOU HEARD?'
-  endText: 
+  endText: I HEAR THEM IN MY HEAD. I HEAR THEM IN THE WALLS.
   mfaTimer: 0
   levelTimer: 0
-  notepadText: 
+  notepadText: 'don''t close your eyes never close your eyes don''t close your eyes
+    never close your eyes don''t close your eyes never close your eyes don''t close
+    your eyes never close your eyes don''t close your eyes never close your eyes
+    don''t close your eyes never close your eyes don''t close your eyes never close
+    your eyes don''t close your eyes never close your eyes don''t close your eyes
+    never close your eyes don''t close your eyes never close your eyes don''t close
+    your eyes never close your eyes don''t close your eyes never close your eyes
+    don''t close your eyes never close your eyes don''t close your eyes never close
+    your eyes don''t close your eyes never close your eyes don''t close your eyes
+    never close your eyes don''t close your eyes never close your eyes don''t close
+    your eyes never close your eyes don''t close your eyes never close your eyes
+    don''t close your eyes never close your eyes don''t close your eyes never close
+    your eyes don''t close your eyes never close your eyes don''t close your eyes
+    never close your eyes don''t close your eyes never close your eyes don''t close
+    your eyes never close your eyes don''t close your eyes never close your eyes
+    don''t close your eyes never close your eyes don''t close your eyes never close
+    your eyes don''t close your eyes never close your eyes don''t close your eyes
+    never close your eyes don''t close your eyes never close your eyes don''t close
+    your eyes never close your eyes don''t close your eyes never close your eyes
+    don''t close your eyes never close your eyes don''t close your eyes never close
+    your eyes don''t close your eyes never close your eyes don''t close your eyes
+    never close your eyes don''t close your eyes never close your eyes don''t close
+    your eyes never close your eyes don''t close your eyes never close your eyes
+    don''t close your eyes never close your eyes don''t close your eyes never close
+    your eyes don''t close your eyes never close your eyes don''t close your eyes
+    never close your eyes don''t close your eyes never close your eyes don''t close
+    your eyes never close your eyes don''t close your eyes never close your eyes
+    don''t close your eyes never close your eyes don''t close your eyes never close
+    your eyes don''t close your eyes never close your eyes don''t close your eyes
+    never close your eyes don''t close your eyes never close your eyes don''t close
+    your eyes never close your eyes don''t close your eyes never close your eyes '
   introDialogue: {fileID: 11400000, guid: 9b55d7657ee12914a9b8e02d59e3aa33, type: 2}
   outroDialogue: {fileID: 0}
   messagesNeedMFA: 0
+  callsNeedsMFA: 0
+  phoneNeedsMFA: 1
+  startsWithEmail: 0
+  startsWithText: 0
+  introTextMessage: 
+  pcNeedsMFA: 1
+  introEmailMessage: 
   tasks:
+  - taskDescription: Check your email
+    codeDestination: 1
+    codeOrigin: 1
+    requiresInteraction: 1
+    mfaTimerEnabled: 0
+    levelTimerEnabled: 0
+    isCompleted: 0
+    isFinalTask: 0
+    preTaskDialogue: {fileID: 11400000, guid: efa948337fc06c14e8956b1623b92146, type: 2}
+    postTaskDialogue: {fileID: 0}
+    sendsText: 0
+    sendsEmail: 1
+    textMessage: 
+    email: '[US] you heard nothing you saw nothing you feel nothing'
+    taskTextAppNeedsMFA: 0
+    taskCallAppNeedsMFA: 0
+  - taskDescription: Check texts
+    codeDestination: 2
+    codeOrigin: 3
+    requiresInteraction: 1
+    mfaTimerEnabled: 0
+    levelTimerEnabled: 0
+    isCompleted: 0
+    isFinalTask: 0
+    preTaskDialogue: {fileID: 11400000, guid: c88665bd897cc474cbae6c37fc8534ef, type: 2}
+    postTaskDialogue: {fileID: 11400000, guid: 54d209531a2d7eb40898685208cf8cca, type: 2}
+    sendsText: 1
+    sendsEmail: 0
+    textMessage: 'they can''t find you if you don''t authenticate '
+    email: 
+    taskTextAppNeedsMFA: 1
+    taskCallAppNeedsMFA: 0
   - taskDescription: Go to bed
     codeDestination: 3
-    codeOrigin: 5
+    codeOrigin: 6
     requiresInteraction: 0
     mfaTimerEnabled: 0
     levelTimerEnabled: 0
-    isCompleted: 1
+    isCompleted: 0
     isFinalTask: 1
-    isFirstTask: 0
-    preTaskDialogue: {fileID: 11400000, guid: efa948337fc06c14e8956b1623b92146, type: 2}
+    preTaskDialogue: {fileID: 0}
     postTaskDialogue: {fileID: 0}
+    sendsText: 0
+    sendsEmail: 0
+    textMessage: 
+    email: 
+    taskTextAppNeedsMFA: 0
+    taskCallAppNeedsMFA: 0
