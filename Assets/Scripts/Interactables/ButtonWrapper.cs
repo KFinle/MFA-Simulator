@@ -134,7 +134,7 @@ public class ButtonWrapper : MonoBehaviour
                 code.text = "";
                 if (codeOrigin == CodeOrigin.TextApp) FindFirstObjectByType<PhoneManager>().messagesNeedMFA = false;
                 if (codeOrigin == CodeOrigin.CallApp) FindFirstObjectByType<PhoneManager>().callNeedsAuthentication = false;
-                SetMFAInputBoxOff();
+                //SetMFAInputBoxOff();
                 ShowCanvas();
             }
             else
