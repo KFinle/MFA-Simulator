@@ -27,9 +27,7 @@ The controls are as follows:
 ### Next Steps
 There are more levels planned for this project. Ultimately, I was forced to limit scope
 aggressively to ensure all necessary systems were in place and functional by the deadline.
-Moving forward, I intend to add back in the cut content, as well as a fresh helping of polish. The
-current plan is to continue working on this game for the next few weeks until I feel comfortable
-publishing it on itch.io.
+Moving forward, I intend to add back in the cut content, as well as a fresh helping of polish. 
 ### Known Bugs
 There are a few bugs discovered either during last-minute testing or through watching other
 students play the game in class today. They are documented here in the hopes that those who
